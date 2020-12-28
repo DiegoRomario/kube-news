@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kube-news-registration
+  labels:
+    app: kube-news-registration
+spec:
+  containers:
+  - name: kube-news-registration-container
+    image: aluracursos/sistema-noticias:1
+    ports:
+      - containerPort: 80
