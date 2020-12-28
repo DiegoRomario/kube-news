@@ -2,7 +2,11 @@ apiVersion: v1
 kind: Pod 
 metadata:
   name: kube-news
+  labels: 
+    app: kube-news
 spec: 
   containers:
     - name: kube-news-container
       image: aluracursos/portal-noticias:1
+      ports:
+        - containerPort: 80
