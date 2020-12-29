@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-kube-news-db
+spec:
+  selector:
+    matchLabels:
+      app: kube-news-db
+  template:
+    metadata:
+      name: kube-news-db
+      labels:
+        app: kube-news-db
+    spec:
+      containers:
+        - name: kube-news-db-container
+          image: aluracursos/mysql-db:1
+          ports:
+            - containerPort: 3306
+          envFrom:
+            - configMapRef:
+                name: config-map-kube-news-db
