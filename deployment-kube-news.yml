@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-kube-news
+spec: 
+  template:
+    metadata:
+      name: kube-news
+      labels:
+        app: kube-news
+    spec:
+      containers:
+        - name: kube-news-container
+          image: aluracursos/portal-noticias:1
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: config-map-kube-news
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kube-news
