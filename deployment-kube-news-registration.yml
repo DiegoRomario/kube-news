@@ -1,0 +1,26 @@
+
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-kube-news-registration
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kube-news-registration
+  template:
+    metadata:
+      name: kube-news-registration
+      labels:
+        app: kube-news-registration
+    spec:
+      containers:
+      - name: kube-news-registration-container
+        image: aluracursos/sistema-noticias:1
+        ports:
+          - containerPort: 80
+        envFrom:
+          - configMapRef:
+              name: config-map-kube-news-registration 
