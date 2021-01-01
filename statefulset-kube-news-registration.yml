@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: statefulset-kube-news-registration
+spec: 
+  replicas: 1
+  template:
+    metadata:
+      labels: 
+        app: kube-news-registration
+      name: kube-news-registration
+    spec:
+      containers:
+        - name: kube-news-registration-container
+          image: aluracursos/sistema-noticias:1
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: config-map-kube-news-registration
+          volumeMounts:
+            - name: imagens
+              mountPath: /var/www/html/uploads
+            - name: sessao
+              mountPath: /tmp
+      volumes:
+        - name: imagens
+          persistentVolumeClaim:
+              claimName: pvc-kube-news-registration-imagens
+        - name: sessao
+          persistentVolumeClaim:
+              claimName: pvc-kube-news-registration-sessao
+  selector:
+    matchLabels:
+      app: kube-news-registration
+  serviceName: svc-kube-news-registration
